@@ -1,7 +1,9 @@
 body {
     font-family: Arial;
   }
-  
+img{
+    margin-top: -50px;
+}
   * {
     box-sizing: border-box;
   }

@@ -10,21 +10,39 @@ function searchButton() {
 }
 function dataLoad(meals) {
     const searchResult = document.getElementById('mealcard');
+    searchResult.textContent = '';
     meals.forEach(meal => {
-        console.log(meal);
+        // console.log(meal);
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML = `
-        <div class="card">
+        <div onclick="loadMealDetails(${meal.idMeal})" class="card">
             <img src="${meal.strMealThumb}" class="card-img-top" alt="...">
-            <h3>Card 1</h3>
-            <p>Some text</p>
-            <p>Some text</p>
+            <h5>${meal.strMeal}</h5>
+            <p>${meal.strInstructions.slice(0, 100)}</p>
+           
        </div>
         `;
         searchResult.appendChild(div)
     });
 
 }
-
-// dataLoad()
+const loadMealDetails = mealId => {
+    // console.log(mealId);
+    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`;
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayMealDetails(data.meals[0]))
+}
+const displayMealDetails = meal => {
+    const mealsDetails = document.getElementById('mealDetails');
+    const div = document.createElement('div');
+    div.classList.add('card')
+    div.innerHTML = `
+    <img src="${meal.strMealThumb}" class="card-img-top" alt="...">
+        <div class="card-body">
+        <h5>${meal.strMeal}</h5>
+        <p>${meal.strInstructions.slice(0, 100)}</p>
+    `;
+    mealsDetails.appendChild(div);
+}
