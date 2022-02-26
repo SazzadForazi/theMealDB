@@ -37,6 +37,7 @@ const loadMealDetails = mealId => {
 const displayMealDetails = meal => {
     const mealsDetails = document.getElementById('mealDetails');
     const div = document.createElement('div');
+    mealsDetails.textContent = '';
     div.classList.add('card')
     div.innerHTML = `
     <img src="${meal.strMealThumb}" class="card-img-top" alt="...">
